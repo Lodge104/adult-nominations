@@ -1,5 +1,10 @@
 <?php
 include '../unitelections-info.php';
+require '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -50,9 +55,8 @@ $createAdult->close();
 
 
 
-require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 include '../unitelections-info.php';
-  $mail = new PHPMailer;
+$mail = new PHPMailer(true);
   $mail->IsSMTP();        //Sets Mailer to send message using SMTP
   $mail->Host = $host;  //Sets the SMTP hosts
   $mail->Port = $port;        //Sets the default SMTP server port

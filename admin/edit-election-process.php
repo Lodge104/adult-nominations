@@ -43,6 +43,6 @@ $updateElection1->execute();
 $updateElection1->close();
 
 
-header("Location: /admin/elections.php?status=1");
+header("Location: /admin/?status=1");
 
 ?>

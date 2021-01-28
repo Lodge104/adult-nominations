@@ -102,7 +102,7 @@ include '../unitelections-info.php';
                           <tr>
                             <th scope="col">Unit Type</th>
                             <th scope="col">Unit Number</th>
-                            <th scope="col"># of Registered Youth</th>
+                            <th scope="col"># of Youth Elected</th>
                             <th scope="col">Chapter</th>
                             <th scope="col">Date of Election</th>
                           </tr>
