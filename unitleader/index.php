@@ -159,6 +159,9 @@ include '../unitelections-info.php';
 
             <?php
 
+            $rawadults = ($getUnitElections['numRegisteredYouth'] / 3);
+            $numadults = ceil($rawadults);
+
             $tz = 'America/New_York';
             $timestamp = time();
             $dt = new DateTime("now", new DateTimeZone($tz));
@@ -180,12 +183,21 @@ include '../unitelections-info.php';
                   <div class="card-body">
                     <h3 class="card-title">Adult Nominations</h3>
                     <div class="row">
-                      <div class="col-auto">
-                        <a href="../unitleader/add-nomination.php?accessKey=<?php echo $getUnitElections['accessKey']; ?>" class="btn btn-primary" role="button">Submit a New Adult Nomination</a>
-                      </div>
+                      <?php
+                      if ($adultNominationQ->num_rows < $numadults) { ?>
+                        <div class="col-auto">
+                          <a href="../unitleader/add-nomination.php?accessKey=<?php echo $getUnitElections['accessKey']; ?>" class="btn btn-primary" role="button">Submit a New Adult Nomination</a>
+                        </div>
+                      <?php } else { ?>
+                        <div class="col-auto">
+                          <div class="alert alert-danger" role="alert">
+                            All out of nominations!
+                          </div>
+                        </div>
+                      <?php } ?>
                     </div><br>
-                    <div class="alert alert-danger" role="alert">
-                      Please remember the number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
+                    <div class="alert alert-primary" role="alert">
+                      <b>Your unit is allowed <?php echo ($numadults) ?> adult nominations.</b><br>The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
                     </div><br>
                     <div class="table-responsive">
                       <table class="table">
@@ -235,7 +247,7 @@ include '../unitelections-info.php';
                       </div>
                     </div><br>
                     <div class="alert alert-danger" role="alert">
-                      There are no adult nominations yet. Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
+                    <b>There are no adult nominations yet. Your unit is allowed <?php echo ($numadults) ?> adult nominations.</b><br>Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
                     </div>
                   </div>
                 </div>

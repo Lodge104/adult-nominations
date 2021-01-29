@@ -255,18 +255,18 @@ if (!$userInfo) : ?>
               <?php
               }
               ?>
-            </div>
-            </div>
-            </main>
-          <?php endif ?>
+          </div>
+      </div>
+      </main>
+    <?php endif ?>
 
 
-          <?php include "footer.php"; ?>
+    <?php include "footer.php"; ?>
 
-          <script src="../libraries/jquery-3.4.1.min.js"></script>
-          <script src="../libraries/popper-1.16.0.min.js"></script>
-          <script src="../libraries/bootstrap-4.4.1/js/bootstrap.min.js"></script>
-          <script src="https://elections.lodge104.net/login/js/login.js"></script>
+    <script src="../libraries/jquery-3.4.1.min.js"></script>
+    <script src="../libraries/popper-1.16.0.min.js"></script>
+    <script src="../libraries/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://elections.lodge104.net/login/js/login.js"></script>
     </body>
 
 </html>
