@@ -82,7 +82,7 @@ if ($conn->connect_error) {
               <div class="card-body">
                 <h1 class="card-title">New Adult Nomination</h1>
                 <?php $getUnitElections = $getUnitElectionsQ->fetch_assoc(); ?>
-                <?php $rawadults = ($getUnitElections['numRegisteredYouth'] / 3);
+                <?php $rawadults = ($getUnitElections['numRegisteredYouth'] * (2/3));
                 $numadults = ceil($rawadults);
                 ?>
                 <?php
@@ -96,7 +96,7 @@ if ($conn->connect_error) {
                 if ($adultNominationQ->num_rows < $numadults) { ?>
                   <div class="form-row">
                     <div class="col-md-12">
-                      <p>Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months. Recommendations of the adult selection committee, with the approval of the Scout Executive, serving as Supreme Chief of the Fire, will be candidates for induction, provided all conditions are fulfilled. </p>
+                      <p>Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than two-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the two-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months. Recommendations of the adult selection committee, with the approval of the Scout Executive, serving as Supreme Chief of the Fire, will be candidates for induction, provided all conditions are fulfilled. </p>
                       <h3 class="required">Personal Information</h3>
                     </div>
                   </div>
