@@ -1,15 +1,29 @@
-Order of the Arrow Virtual Unit Elections Portal
+Occoneechee Lodge, Order of the Arrow's Adult Nomination Portal
 =========
 
-This is the Unit Elections Portal used by Occoneechee Lodge. This system allows for our lodge to track unit elections from start to finish.
+This is the Adult Nomination Portal used by Occoneechee Lodge. This system allows for our lodge to track adult nominations from start to finish.
 
-Our main website allows for unit leaders to request a unit election via a form that sends an election request to a Chapter Adviser. The Chapter Adviser has an account on our unit elections portal and logs the request. The Chapter Adviser then responds to the request via email and gives the Unit Leader an access key provided by the system and a link to the unit leader page within this unit elections portal. 
+Our lodge uses LodgeMaster's Induction Module to track unit elections and youth candidates. LodgeMaster does not currently allow for the tracking and processing of adult nominations. This system is a solution until LodgeMaster eventually adopts the ability to do adult nominations.
 
-The Unit Leader can then access the portal and put in all the vital information about the election candidates. 
+The adult nomination process begins when a unit election is sent for approval in the induction module of LodgeMaster. If a unit has at least one scout elected, an administrator will create a unit profile in this system. They'll include the unit leader's information, the date of their election, and how many scouts were elected.
 
-Once the time comes for the unit election, the election team can turn on voting within the unit election portal and give a completely anonymous voting link to the Scouts within the unit. Once a scout vote, the system leaves a cookie on their device preventing them from voting more then once. 
+![Admin Dashboard](https://github.com/Lodge104/adult-nominations-auth0/blob/master/readme/admin-dashboard.png)
 
-After voting is completed, the unit election team turns off voting and the election results are available immediately. The unit leader, election team, and lodge leadership all have access to view the results. Only lodge leadership with the Admin privilage have the ability to export the results.
+The adminstrator will then click a button to start the nomination process by sending an invitation email through the system.
+
+The unit leader will get an email invitation with a link to a nomation dashboard. On the dashboard, it will show instructions and a button to submit nominations. The systems is able to calculate how many adult nominations are allowed based on the number of elected scouts previously entered for the unit. The system will prevent more nomations than allowed from being made.
+
+![Unit Leader Dashboard](https://github.com/Lodge104/adult-nominations-auth0/blob/master/readme/unitleader-dashboard.png)
+
+Once the unit leader submits the nomination, an automated invitation is sent to the unit chair to review it. The unit chair's information is provided in the nomination form. The unit chair cannot create nominations but can only review and edit ones created by the unit leader. Only certain fields are editable by the unit chair.
+
+![Create Nomination](https://github.com/Lodge104/adult-nominations-auth0/blob/master/readme/nomination-form.png)
+
+Once the unit chair approves the nomination, an automated email is sent to the selection committee. The selection committee then goes to it's own dashboard to review and approve/disapprove of the nomination. The information can be copied over to LodgeMaster by either the selection committee or a system admin.
+
+![Selection Committee Dashboard](https://github.com/Lodge104/adult-nominations-auth0/blob/master/readme/selection-committee.png)
+
+The system used Auth0.com as the user management and role access control. Our lodge uses Auth0 for all our systems to control access and give everyone one account. Similar to ArrowID.
 
 ##### Features
 
@@ -31,36 +45,18 @@ Technologies used:
 - `MySQL` *_required_*
 	- Version `5.6+` recommended
 
-- `Composer` *_required_*
-	- Version `1.2.1+` recommended
-	- `mbstring` and `dom` php extensions required
-
-	 <small>*If Composer is not installed on the system or accessible through `shell_exec`, a self-contained `composer.phar` file located in the `install` directory is used*</small>
-
-- `cURL` _recommended_
-	- Version `7+` recommended
-
-##### Components loaded via Composer
+##### Components loaded via Composer that are contained in this repo
 - `jQuery`
 	- Version `3.1`
 	- Pulled in via composer
 - `Bootstrap`
-	- Version `^3`
+	- Version `4.4.1`
 - `PHP-Mailer`
-	- Version `5.2`
-- `JSON Web Tokens` (JWT) (Firebase implementation)
-	- Version `5.0`
-
-##### Other libraries
-- [PHP Login for User Management](https://github.com/therecluse26/PHP-Login)
-    - Version `3.1`
-- [Originally Forked from eibrown12](https://github.com/eibrown12/unit-elections)
-- `DataTables`
-	- Version `1.10.16`
-- `Cropper`
-- `LoadingOverlay`
-- `Multiselect`
-	- Version `2.5.0`
+	- Version `6.2.0`
+	- Pulled in via composer
+- `auth0-PHP`
+	- Version `7.6.1`
+	- Pulled in via composer
 
 ##### General Recommendations
 
@@ -69,52 +65,16 @@ Technologies used:
 
 - Linux server running [Apache](https://www.apache.org) or [Nginx](https://nginx.org) is preferred
 
-- Shell access is recommended. While it is likely possible to install this library without shell access (such as on a shared web hosting provider), this is unsupported. It's highly recommended that you instead opt for a VPS provider such as [DigitalOcean](https://m.do.co/c/da6f17522df3) that allows you root shell access
-
-- Run `mysql_secure_installation` on server prior to app installation
-
 - Host your database on an encrypted filesystem
-
-- File/directory permissions should be locked down to an appropriate level
-	- [Useful information](https://www.digitalocean.com/community/tutorials/linux-permissions-basics-and-how-to-use-umask-on-a-vps#types-of-permissions)
 
 Installation
 ------------
 
 #### Clone the Repository
-	$ git clone https://github.com/Lodge104/unit-elections.git
-
-#### Install necessary dependencies with `Composer`
-	$ composer install --no-dev
-
-Run Composer using SSH in the root directory that has the file `composer.json`. To use this repository, your website hosting service mush allow SSH. If you do not already have Composer installed with your hosting service, you can run the `composer.phar` file in the /install/ directory using the following command while your still in the root directory. Change /path/to/ to whatever your root is.
-
-    $ php /path/to/install/composer.phar install --no-dev
-
-#### Run through web-based installer
-Open this link in your web browser (replacing [yoursite.com] with your site address)
-
-    http://{yoursite.com}/install/index.php
-
-Select an installation option from the pop-up modal that appears: `Automated` or `Manual`
-
-
-[Automated Installation Instructions](docs/install_automated.md)
-
-[Manual Installation Instructions](docs/install_manual.md)
+	$ git clone https://github.com/Lodge104/adult-nominations-auth0.git
 
 #### Install Unit Elections Database
 Find the `unitelections.sql` file in the root of this repository and import it into your MySQL database. This will create a new database called `elections`. This will keep your data seperate from user management data.
 
 Then find the `unitelections-info-sample.php` file and rename it to `unitelections-info.php` leaving it in the site's root. Change the values within the file to match the `elections` database you just created.
 
-
-Documentation
--------------
-[Site Config Settings](docs/site_config.md)
-
-[API Methods](docs/methods.md)
-
-\* *Full API documentation can be found by nagivating to:* `{yoursite.com}/docs/api/index.html`
-
-[Change Log](docs/changelog.md)
