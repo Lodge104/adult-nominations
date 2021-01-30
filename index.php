@@ -35,7 +35,7 @@ if (!$userInfo) : ?>
     <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
     <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
 
-    <title>Unit Leader Dashboard | Occoneechee Lodge - Order of the Arrow, BSA</title>
+    <title>Adult Nomination Portal | Occoneechee Lodge - Order of the Arrow, BSA</title>
 
     <link rel="stylesheet" href="../libraries/bootstrap-4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
@@ -67,6 +67,14 @@ if (!$userInfo) : ?>
         <div class="wrapper">
 
           <main class="container-fluid col-xl-11">
+            <?php
+            if ($_GET['error'] == 'unauthorized') { ?>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+              <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> You do not have the required role to access the Nomination Portal!
+                <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+              </div>
+            <?php } ?>
 
             <div class="row justify-content-center pb-5">
               <div class="card col-md-5">
@@ -116,7 +124,7 @@ if (!$userInfo) : ?>
       <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
       <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
 
-      <title>Unit Leader Dashboard | Occoneechee Lodge - Order of the Arrow, BSA</title>
+      <title>Adult Nomination Portal | Occoneechee Lodge - Order of the Arrow, BSA</title>
 
       <link rel="stylesheet" href="../libraries/bootstrap-4.4.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">

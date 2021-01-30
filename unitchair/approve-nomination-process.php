@@ -113,6 +113,6 @@ $mail = new PHPMailer(true);
   if($mail->Send())        //Send an Email. Return true on success or false on error
 
 
-header("Location: index.php?status=1");
+header("Location: index.php?accessKey=" . $accessKey . "&status=1");
 
 ?>

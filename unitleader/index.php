@@ -14,7 +14,7 @@ include '../unitelections-info.php';
   <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
   <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
 
-  <title>Unit Leader Dashboard | Occoneechee Lodge - Order of the Arrow, BSA</title>
+  <title>Unit Leader's Dashboard | Occoneechee Lodge - Order of the Arrow, BSA</title>
 
   <link rel="stylesheet" href="../libraries/bootstrap-4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
@@ -218,9 +218,9 @@ include '../unitelections-info.php';
                               <td>
                                 <?php
                                 if (($getAdult['leader_signature'] == '1' && (($getAdult['chair_signature'] == '1') && ($getAdult['advisor_signature'] == '2')))) { ?>
-                                  <span class="badge badge-warning">Not Approved - See Email</span>
+                                  <span class="badge badge-warning">Not Approved by Selection Committee</span>
                                 <?php } elseif (($getAdult['leader_signature'] == '1' && (($getAdult['chair_signature'] == '1') && ($getAdult['advisor_signature'] == '1')))) { ?>
-                                  <span class="badge badge-success">Approved</span>
+                                  <span class="badge badge-success">Approved by Selection Committee</span>
                                 <?php } elseif (($getAdult['leader_signature'] == '1' && $getAdult['chair_signature'] == '1')) { ?>
                                   <span class="badge badge-danger">Waiting for Selection Committee</span>
                                 <?php } elseif (($getAdult['leader_signature'] == '1')) { ?>
@@ -247,7 +247,7 @@ include '../unitelections-info.php';
                       </div>
                     </div><br>
                     <div class="alert alert-danger" role="alert">
-                    <b>There are no adult nominations yet. Your unit is allowed <?php echo ($numadults) ?> adult nominations.</b><br>Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
+                      <b>There are no adult nominations yet. Your unit is allowed <?php echo ($numadults) ?> adult nominations.</b><br>Each year, upon holding a troop or team election for youth candidates that results in at least one youth candidate being elected, the unit committee may nominate registered unit adults (age 21 or over) to the lodge adult selection committee. The number of adults nominated can be no more than one-third of the number of youth candidates elected, rounded up where the number of youth candidates is not a multiple of three. In addition to the one-third limit, the unit committee may nominate the currently-serving unit leader (but not assistant leaders), as long as he or she has served as unit leader for at least the previous 12 months.
                     </div>
                   </div>
                 </div>

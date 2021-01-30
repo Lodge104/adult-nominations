@@ -10,7 +10,7 @@ include '../unitelections-info.php';
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 
 ?>
@@ -19,25 +19,28 @@ if ($conn->connect_error) {
 <html>
 
 <head>
-    <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
-    <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+  <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
+  <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
 
-    <title>Unit Leader Dashboard | Occoneechee Lodge - Order of the Arrow, BSA</title>
+  <title>Edit Election Information | Occoneechee Lodge - Order of the Arrow, BSA</title>
 
-    <link rel="stylesheet" href="../libraries/bootstrap-4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
-    <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
-    <link rel="stylesheet" href="../style.css">
-	
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="stylesheet" href="../libraries/bootstrap-4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
+  <link rel="stylesheet" href="../style.css">
 
-  gtag('config', 'UA-37461006-19');
-</script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-37461006-19');
+  </script>
 
 
 
@@ -46,18 +49,18 @@ if ($conn->connect_error) {
 <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
   <div class="wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="https://lodge104.net">
-            <img src="/assets/lodge-logo.png" alt="Occoneechee Lodge" class="d-inline-block align-top">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <a class="navbar-brand" href="https://lodge104.net">
+        <img src="/assets/lodge-logo.png" alt="Occoneechee Lodge" class="d-inline-block align-top">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse c-navbar-content" id="navbar-main">
-            <div class="navbar-nav ml-auto">
-                <a class="nav-item nav-link" href="https://lodge104.net" target="_blank">Occoneechee Lodge Home</a>
-            </div>
+      <div class="collapse navbar-collapse c-navbar-content" id="navbar-main">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="https://lodge104.net" target="_blank">Occoneechee Lodge Home</a>
         </div>
+      </div>
     </nav>
 
     <main class="container-fluid flex-shrink-0">
@@ -66,11 +69,11 @@ if ($conn->connect_error) {
       if (isset($_GET['accessKey'])) {
         if (preg_match("/^([a-z\d]){8}-([a-z\d]){4}-([a-z\d]){4}-([a-z\d]){4}-([a-z\d]){12}$/", $_GET['accessKey'])) {
           $accessKey = $_POST['accessKey'] = $_GET['accessKey'];
-          ?>
+      ?>
           <section class="row">
-              <div class="col-12">
-                  <h2>Unit Election Administration</h2>
-              </div>
+            <div class="col-12">
+              <h2>Unit Election Administration</h2>
+            </div>
           </section>
           <?php
           $getUnitElectionsQuery = $conn->prepare("SELECT * from unitElections where accessKey = ?");
@@ -79,7 +82,7 @@ if ($conn->connect_error) {
           $getUnitElectionsQ = $getUnitElectionsQuery->get_result();
           if ($getUnitElectionsQ->num_rows > 0) {
             //print election info
-            ?>
+          ?>
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title d-inline-flex">Edit Unit Election Information</h3>
@@ -121,7 +124,8 @@ if ($conn->connect_error) {
                       </div>
                     </div>
                   </div>
-                  <hr></hr>
+                  <hr>
+                  </hr>
                   <h4 class="card-title">Unit Leader Information</h4>
                   <div class="form-row">
                     <div class="col-md-3">
@@ -159,7 +163,7 @@ if ($conn->connect_error) {
                         <input id="sm_email" name="sm_email" type="email" class="form-control" placeholder="Email" value="<?php echo $getUnitElections['sm_email']; ?>">
                       </div>
                       <div class="form-group">
-                        <input id="sm_phone" name="sm_phone" type="text" class="form-control" placeholder="Phone" value="<?php echo $getUnitElections['sm_phone']; ?>" >
+                        <input id="sm_phone" name="sm_phone" type="text" class="form-control" placeholder="Phone" value="<?php echo $getUnitElections['sm_phone']; ?>">
                       </div>
                     </div>
                   </div>
@@ -168,13 +172,13 @@ if ($conn->connect_error) {
                 </form>
               </div>
             </div>
-            <?php
+          <?php
           } else {
-            ?>
+          ?>
             <div class="alert alert-danger" role="alert">
               There are no elections in the database.
             </div>
-            <?php
+          <?php
           }
         } else {
           //accesskey bad
@@ -189,13 +193,13 @@ if ($conn->connect_error) {
               <form action='' method="get">
                 <div class="form-group">
                   <label for="accessKey">Access Key</label>
-                  <input type="text" id="accessKey" name="accessKey" class="form-control" >
+                  <input type="text" id="accessKey" name="accessKey" class="form-control">
                 </div>
                 <input type="submit" class="btn btn-primary" value="Submit">
               </form>
             </div>
           </div>
-          <?php
+        <?php
         }
       } else {
         //no accessKey
@@ -206,22 +210,22 @@ if ($conn->connect_error) {
             <form action='' method="get">
               <div class="form-group">
                 <label for="accessKey">Access Key</label>
-                <input type="text" id="accessKey" name="accessKey" class="form-control" >
+                <input type="text" id="accessKey" name="accessKey" class="form-control">
               </div>
               <input type="submit" class="btn btn-primary" value="Submit">
             </form>
           </div>
         </div>
-        <?php
+      <?php
       }
-    ?>
+      ?>
     </main>
   </div>
-    <?php include "../footer.php"; ?>
+  <?php include "../footer.php"; ?>
 
-    <script src="../libraries/jquery-3.4.1.min.js"></script>
-    <script src="../libraries/popper-1.16.0.min.js"></script>
-    <script src="../libraries/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+  <script src="../libraries/jquery-3.4.1.min.js"></script>
+  <script src="../libraries/popper-1.16.0.min.js"></script>
+  <script src="../libraries/bootstrap-4.4.1/js/bootstrap.min.js"></script>
 
 </body>
 
