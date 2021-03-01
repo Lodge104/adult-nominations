@@ -52,9 +52,10 @@ if (isset($_POST['uc_address_line2'])) {  $uc_address_line2 = $_POST['uc_address
 if (isset($_POST['uc_city'])) {  $uc_city = $_POST['uc_city']; } else { $uc_city = ""; }
 if (isset($_POST['uc_state'])) {  $uc_state = $_POST['uc_state']; } else { $uc_state = ""; }
 if (isset($_POST['uc_zip'])) {  $uc_zip = $_POST['uc_zip']; } else { $uc_zip = ""; }
+if (isset($_POST['sm_email'])) {  $sm_email = $_POST['sm_email']; } else { $sm_email = ""; }
 if (isset($_POST['uc_email'])) {  $uc_email = $_POST['uc_email']; } else { $uc_email = ""; }
 if (isset($_POST['uc_phone'])) {  $uc_phone = $_POST['uc_phone']; } else { $uc_phone = ""; }
-if (isset($_POST['sm_email'])) {  $sm_email = $_POST['sm_email']; } else { $sm_email = ""; }
+
 
 
 
@@ -109,7 +110,7 @@ $mail = new PHPMailer(true);
                                 <br>
                                 The unit leader, from '.$unitCommunity.' '.$unitNumber.' has submitted an Adult Nomination for consideration of candidacy in the Order of the Arrow. This nomination is for '.$firstName.' '.$lastName.'. Before the nomination can be reviewed by the Lodge Selection Committee it must be independently reviewed and approved by the Unit Chair. Please click the link below to access the Unit Chair dashboard for your unit and review the nomination.<br>
                                 <br>
-								Additional nominations may be submitted and will be viewable on the same dashboard.
+								Additional nominations may be submitted and will be viewable on the same link.
 								</td>
                             </tr>
                           </tbody>

@@ -95,15 +95,15 @@ include '../unitelections-info.php';
       ?>
           <section class="row">
             <div class="col-12">
-              <h2>Adult Nomination Dashboard</h2>
+              <h2>Unit Leader's Adult Nomination Dashboard</h2>
             </div>
           </section>
-          <!--<div class="card mb-3">
-                  <div class="card-body">
-				  	<h3 class="card-title d-inline-flex">Instructions</h3>
-				    <p></p>
-				  </div>
-		 	  </div>-->
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title d-inline-flex">Instructions</h3>
+              <p>This is the unit leader's dashboard for adult nominations to the Order of the Arrow. <b>If you are not the unit leader, please forward the original email to the correct person. Please start by updating your information using the edit button.</b> When you submit a new adult nomination, your unit's chair will be notified. They will review the submission on their own dashboard and approve it. Once approved, the nomination will go to the selection committee of the lodge. The status will be updated on this dashboard; use the link from the email you received to check back routinely.</p>
+            </div>
+          </div>
           <?php
           $getUnitElectionsQuery = $conn->prepare("SELECT * from unitElections where accessKey = ?");
           $getUnitElectionsQuery->bind_param("s", $accessKey);

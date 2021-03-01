@@ -57,14 +57,6 @@ include '../unitelections-info.php';
 
     <main class="container-fluid flex-shrink-0">
       <?php
-      if ($_GET['status'] == 1) { ?>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <div class="alert alert-success" role="alert">
-          <strong>Saved!</strong> Your adult nomination has been submitted! Thanks! You may now close this tab or approve other nominations.
-          <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
-        </div>
-      <?php } ?>
-      <?php
       include '../unitelections-info.php';
       // Create connection
       $conn = new mysqli($servername, $username, $password, $dbname);
@@ -85,7 +77,7 @@ include '../unitelections-info.php';
           <div class="card mb-3">
             <div class="card-body">
               <h3 class="card-title d-inline-flex">Instructions</h3>
-              <p>This is the dashboard for adult nominations to the Order of the Arrow for your unit. When the unit leader of your unit submits a new adult nomination, you will be notified to come to this page. You must then go down below, review the submission and approve it. Once approved, the nomination will go to the selection committee of the lodge. If approved, you'll be notified via email.</p>
+              <p>This is the unit chair's dashboard for adult nominations to the Order of the Arrow. When the unit leader of your unit submits a new adult nomination, you will be notified to come to this page. You must then go down below, review the submission and approve it. Once approved, the nomination will go to the selection committee of the lodge. The status will be updated on this dashboard; use the link from the email you received to check back routinely.</p>
             </div>
           </div>
           <?php

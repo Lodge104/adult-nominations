@@ -1,8 +1,4 @@
 <?php
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
 include '../unitelections-info.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,7 +26,7 @@ if (isset($_POST['sm_phone'])) {  $sm_phone = $_POST['sm_phone']; } else { $sm_p
 
 
 $updateElection = $conn->prepare("UPDATE unitElections SET sm_name=?,sm_address_line1=?,sm_address_line2=?,sm_city=?,sm_state=?,sm_zip=?,sm_email=?,sm_phone=? WHERE id = ?");
-$updateElection->bind_param("ssssssssss", $sm_name, $sm_address_line1, $sm_address_line2, $sm_city, $sm_state, $sm_zip, $sm_email, $sm_phone, $unitId);
+$updateElection->bind_param("sssssssss", $sm_name, $sm_address_line1, $sm_address_line2, $sm_city, $sm_state, $sm_zip, $sm_email, $sm_phone, $unitId);
 $updateElection->execute();
 $updateElection->close();
 

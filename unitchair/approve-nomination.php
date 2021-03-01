@@ -210,6 +210,9 @@ if ($conn->connect_error) {
                   <div class="col-md-12">
                     <h3>Camping Requirements</h3>
                     <p>The camping requirement set forth for youth candidates must be fulfilled by adults for them to be considered. To be eligible, the adult must have completed 15 days and nights of Boy Scout camping during the two-year period prior to nomination. The 15 days and nights must include one, but no more than one, long-term camp consisting of six consecutive days and five nights of resident camping, approved and under the auspices and standards of the BSA. The balance must be overnight, weekend, or other short-term camps. Include the dates and location of the resident camping experience in the space below.</p>
+                    <div class="alert alert-danger" role="alert">
+                      <b>For 2021 nominations only,</b> the requirement for a long-term camp of five (5) consecutive nights is relaxed. While council long-term camps should be utilized if available, any combination of short-term and/or long-term nights, in camp or virtual, that are part of a BSA unit-organized unit camping event held within the two years prior to the election may be counted toward the 15-night requirement. If long term camping has not been completed, please state that in the relevant box.
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="col-md-12">

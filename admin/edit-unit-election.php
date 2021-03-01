@@ -195,8 +195,12 @@ if (!$userInfo) : ?>
 																  <td style="width:100%" valign="top">
 																	<br>
 																	Dear ' . $getUnitElections['sm_name'] . ',<br>
-																	<br>
-																	Thank you for recently completing a unit election. The results of your unit election have now been processed by Occoneechee Lodge and the new candidates can now register for their inductions. As part of the election process, your unit may now submit adult nominations for membership in the Order of the Arrow. Please click the link below to access the Unit Leader dashboard for your unit and begin working on your adult nominations.<br>
+                                  <br>
+                                  Your unit has sucessfully completed the unit election.
+                                  <br>
+                                  As part of the election process, you, as the unit leader, may now submit adult nominations for membership in the Order of the Arrow. Please click the link below to access the Unit Leader dashboard for your unit and begin working on your adult nominations.<br>
+                                  <br>
+                                  <b>This link is only for the unit leader.</b> After you submit your nomination(s), your unit chair will receive a seperate invitation to review the nominations on behalf of your unit committee.
 																	</td>
 																</tr>
 															  </tbody>
