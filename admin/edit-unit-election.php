@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use Twilio\Rest\Client;
 
 
 
@@ -20,19 +21,6 @@ if ($conn->connect_error) {
 
 <!DOCTYPE html>
 <html>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'UA-37461006-19');
-</script>
 <?php
 
 $userInfo = $auth0->getUser();
@@ -52,6 +40,8 @@ if (!$userInfo) : ?>
 
 
   </head>
+
+  <?php include "../header.php"; ?>
 
   <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
     <div class="wrapper">
@@ -110,9 +100,9 @@ if (!$userInfo) : ?>
       <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
       <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
       <link rel="stylesheet" href="../style.css">
-
-
     </head>
+
+    <?php include "../header.php"; ?>
 
     <body class="dashboard d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
       <div class="wrapper">
@@ -223,18 +213,173 @@ if (!$userInfo) : ?>
 										</tr>
 									  </tbody>
 									</table>';   //An HTML or plain text message body
-                      if ($mail->Send())        //Send an Email. Return true on success or false on error
+                      if ($mail->Send()) {        //Send an Email. Return true on success or false on error
 
                         echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
         <div class='alert alert-success' role='alert'>
             <strong>Sent!</strong> Your email has been sent! Thanks!
             <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+        </div>"; } else {
+          echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <div class='alert alert-danger' role='alert'>
+            <strong>Error!</strong> Your email didn't send! Check the email address and try again!
+            <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
         </div>";
+        }
+                      
+                      $sid = $sidp;
+                      $token = $tokenp;
+                      $client = new Client($sid, $token);
+                      $phone = preg_replace('/\D+/', '', $getUnitElections['sm_phone']);
+
+                      // Use the client to do fun stuff like send text messages!
+                      if ($client->messages->create(
+                          // the number you'd like to send the message to
+                          '+1'. $phone .'',
+                          [
+                              // A Twilio phone number you purchased at twilio.com/console
+                              'from' => '+19842050909',
+                              // the body of the text message you'd like to send
+                              'body' => 'Hi ' . $getUnitElections['sm_name'] . '! Its time to submit your unit\'s adult nominations to the Order of the Arrow. See the email we just sent to ' . $getUnitElections['sm_email'] . ' to get started! Check your spam folder it\'s not in your inbox.'
+                          ]
+                      )) {
+                        echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <div class='alert alert-success' role='alert'>
+            <strong>Sent!</strong> Your text message has been sent! Thanks!
+            <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+        </div>";
+                      } else {
+                        echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <div class='alert alert-danger' role='alert'>
+            <strong>Error!</strong> Your text message didn't send! Check the phone number formate and try again!
+            <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+        </div>";
+                      }
                     }
                     ?>
+
+<?php
+                    if (isset($_POST['button2'])) {
+
+                      include '../unitelections-info.php';
+                      $mail = new PHPMailer(true);
+                      $mail->IsSMTP();        //Sets Mailer to send message using SMTP
+                      $mail->Host = $host;  //Sets the SMTP hosts
+                      $mail->Port = $port;        //Sets the default SMTP server port
+                      $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
+                      $mail->Username = $musername;     //Sets SMTP username
+                      $mail->Password = $mpassword;     //Sets SMTP password
+                      $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
+                      $mail->From = $mfrom;     //Sets the From email address for the message
+                      $mail->FromName = $mfromname;    //Sets the From name of the message
+                      $mail->AddAddress($getUnitElections['uc_email']); //Adds a "To" address
+                      $mail->WordWrap = 50;       //Sets word wrapping on the body of the message to a given number of characters
+                      $mail->IsHTML(true);       //Sets message type to HTML    
+                      $mail->Subject = 'Review your Unit\'s Adult Nominations for the Order of the Arrow';    //Sets the Subject of the message
+                      $mail->Body = '<table cellspacing="0" cellpadding="0" border="0" width="600px" style="margin:auto">
+									  <tbody>
+										<tr>
+										  <td style="text-align:center;padding:10px 0 20px 0"><a href="%%7Brecipient.ticket_link%7D" target="_blank"> <img src="https://lodge104.net/wp-content/uploads/2018/09/Horizontal-Brand-Color.png" alt="Occonechee Lodge Support" width="419" height="69" data-image="xoo68adcoon5"></a></td>
+										</tr>
+										<tr>
+										  <td><table cellspacing="0" cellpadding="0" border="0" width="100%">
+											  <tbody>
+												<tr>
+												  <td style="text-align:center;color:#ffffff;background-color:#2d3e4f;padding:8px 0;font-size:13px"> Occoneechee Lodge Unit Elections </td>
+												</tr>
+												<tr>
+												  <td style="text-align:left;border:1px solid #2d3e4f;padding:10px 30px;background-color:#fefefe;line-height:18px;color:#2d3e4f;font-size:13px"> 
+													<table width="100%" cellpadding="0" cellspacing="0" border="0">
+													  <tbody>
+														<tr>
+														  <td style="padding:15px 0; width:100%"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+															  <tbody>
+																<tr>
+																  <td style="width:100%" valign="top">
+																	<br>
+																	Dear ' . $getUnitElections['uc_name'] . ',<br>
+                                  <br>
+                                  Your unit leader has recently submitted a nomination for consideration of candidacy in the Order of the Arrow.<br>
+                                  <br>
+                                  As part of the election process, you, as the unit chair, may now review adult nomination(s) for membership in the Order of the Arrow as the representative of the entire unit committee. This step is required for the nomination to progress. Please click the link below to access the Unit Chair dashboard for your unit and begin reviewing your adult nomination(s).<br>
+                                  <br>
+                                  <b>This link is only for the unit chair.</b> After you review the nomination(s), the lodge selection committee will receive a notification to review the nominations.
+																	</td>
+																</tr>
+															  </tbody>
+															  <tbody>
+																<tr>
+																  <td style="width:100%;text-align:center">
+																  <a href="https://nominate.lodge104.net/unitchair/?accessKey=' . $getUnitElections['accessKey'] . '" target="_blank">
+																  <p>https://nominate.lodge104.net/unitchair/?accessKey=' . $getUnitElections['accessKey'] . '</p>
+																  </a>
+																  </td>
+																</tr>
+															  </tbody>
+															</table></td>
+														</tr>
+													  </tbody>
+													</table></td>
+												</tr>
+											  </tbody>
+											</table></td>
+										</tr>
+									  </tbody>
+									</table>';   //An HTML or plain text message body
+                  if ($mail->Send()) {        //Send an Email. Return true on success or false on error
+
+                    echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <div class='alert alert-success' role='alert'>
+        <strong>Sent!</strong> Your email has been sent! Thanks!
+        <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+    </div>"; } else {
+      echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <div class='alert alert-danger' role='alert'>
+        <strong>Error!</strong> Your email didn't send! Check the email address and try again!
+        <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+    </div>";
+    }
+                  
+                  $sid = $sidp;
+                  $token = $tokenp;
+                  $client = new Client($sid, $token);
+                  $phone = preg_replace('/\D+/', '', $getUnitElections['uc_phone']);
+
+                  // Use the client to do fun stuff like send text messages!
+                  if ($client->messages->create(
+                      // the number you'd like to send the message to
+                      '+1'. $phone .'',
+                      [
+                          // A Twilio phone number you purchased at twilio.com/console
+                          'from' => '+19842050909',
+                          // the body of the text message you'd like to send
+                          'body' => 'Hi ' . $getUnitElections['uc_name'] . '! Friendly reminder that it\'s time to review your unit\'s Order of the Arrow Adult Nominations. See the email we just sent to ' . $getUnitElections['uc_email'] . ' to get started! Check your spam folder it\'s not in your inbox.'
+                      ]
+                  )) {
+                    echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <div class='alert alert-success' role='alert'>
+        <strong>Sent!</strong> Your text message has been sent! Thanks!
+        <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+    </div>";
+                  } else {
+                    echo "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <div class='alert alert-danger' role='alert'>
+        <strong>Error!</strong> Your text message didn't send! Check the phone number formate and try again!
+        <button type='button' class='close' data-dismiss='alert'><i class='fas fa-times'></i></button>
+    </div>";
+                  }
+                }
+                    ?>
                     <form method="post">
-                      <input type="submit" name="button1" value="Email Unit Leader" class="btn btn-primary" role="button" />
+                      <?php if(!empty($getUnitElections['sm_email']) && !empty($getUnitElections['sm_name']) && !empty($getUnitElections['sm_phone'])) { ?>
+                      <input type="submit" name="button1" value="Resend Invitation Email to Unit Leader" class="btn btn-primary" role="button" />
+                      <?php } else { echo "<span class=\"badge bg-warning text-dark\">Unit Leader Incomplete</span>"; } ?>
+                      <?php if(!empty($getUnitElections['uc_email']) && !empty($getUnitElections['uc_name']) && !empty($getUnitElections['uc_phone'])) { ?>
+                      <input type="submit" name="button2" value="Resend Invitation Email to Unit Chair" class="btn btn-primary" role="button" />
+                      <?php } else { echo "<span class=\"badge bg-warning text-dark\">Unit Chair Incomplete</span>"; } ?>
                     </form>
+                    <div class="my-2"><small class="text-muted">Note: Double check the email addresses and phone numbers below before hitting either button. If you edit an email or phone number, save the page first before pushing either button.</small></div>
+
                     <br>
 
                     <form action="edit-election-process.php" method="post">
@@ -252,7 +397,11 @@ if (!$userInfo) : ?>
                             <label for="unitCommunity" class="required">Unit Type</label>
                             <select id="unitCommunity" name="unitCommunity" class="custom-select" required>
                               <option></option>
+                              <?php $host = $_SERVER['SERVER_NAME'];
+                              if($host == 'nominate-test.lodge104.net') : ?>
                               <option value="Test Unit" <?php echo ($getUnitElections['unitCommunity'] == 'Test Unit' ? 'selected' : ''); ?>>Test Unit</option>
+                              <?php else : ?>
+                              <?php endif ?>
                               <option value="Boy Troop" <?php echo ($getUnitElections['unitCommunity'] == 'Boy Troop' ? 'selected' : ''); ?>>Boy Troop</option>
                               <option value="Girl Troop" <?php echo ($getUnitElections['unitCommunity'] == 'Girl Troop' ? 'selected' : ''); ?>>Girl Troop</option>
                               <option value="Team" <?php echo ($getUnitElections['unitCommunity'] == 'Team' ? 'selected' : ''); ?>>Team</option>
@@ -281,7 +430,7 @@ if (!$userInfo) : ?>
                             <select id="chapter" name="chapter" class="custom-select" required>
                               <option></option>
                               <option value="eluwak" <?php echo ($getUnitElections['chapter'] == 'Eluwak' ? 'selected' : ''); ?>>Eluwak</option>
-                              <option value="ilaumachque" <?php echo ($getUnitElections['chapter'] == 'Ilau Machque' ? 'selected' : ''); ?>>Ilau Machque</option>
+                              <option value="ilaumachque" <?php echo ($getUnitElections['chapter'] == 'Ilaumachque' ? 'selected' : ''); ?>>Ilau Machque</option>
                               <option value="kiowa" <?php echo ($getUnitElections['chapter'] == 'Kiowa' ? 'selected' : ''); ?>>Kiowa</option>
                               <option value="lauchsoheen" <?php echo ($getUnitElections['chapter'] == 'Lauchsoheen' ? 'selected' : ''); ?>>Lauchsoheen</option>
                               <option value="mimahuk" <?php echo ($getUnitElections['chapter'] == 'Mimahuk' ? 'selected' : ''); ?>>Mimahuk</option>
@@ -300,7 +449,7 @@ if (!$userInfo) : ?>
                       <div class="form-row">
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input id="sm_name" name="sm_name" type="text" class="form-control" placeholder="Name" value="<?php echo $getUnitElections['sm_name']; ?>">
+                            <input id="sm_name" name="sm_name" type="text" class="form-control" placeholder="Name" value="<?php echo $getUnitElections['sm_name']; ?>" required>
                           </div>
                         </div>
                         <div class="col-md-3">
@@ -330,30 +479,56 @@ if (!$userInfo) : ?>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input id="sm_email" name="sm_email" type="email" class="form-control" placeholder="Email" value="<?php echo $getUnitElections['sm_email']; ?>">
+                            <input id="sm_email" name="sm_email" type="email" class="form-control" placeholder="Email" value="<?php echo $getUnitElections['sm_email']; ?>" required>
                           </div>
                           <div class="form-group">
-                            <input id="sm_phone" name="sm_phone" type="text" class="form-control" placeholder="Phone" value="<?php echo $getUnitElections['sm_phone']; ?>">
+                            <input id="sm_phone" name="sm_phone" type="text" class="form-control" placeholder="Phone (###-###-####)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<?php echo $getUnitElections['sm_phone']; ?>" required>
                           </div>
                         </div>
                       </div>
-                      <?php if (($getUnitElections['onlinevote'] == 'Yes')) { ?>
-                        <hr>
-                        </hr>
-                        <div class="form-row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <label for="open" class="required">Voting Open?</label>
-                              <select id="open" name="open" class="custom-select" required>
-                                <option value="No" <?php echo ($getUnitElections['open'] == 'No' ? 'selected' : ''); ?>>No</option>
-                                <option value="Yes" <?php echo ($getUnitElections['open'] == 'Yes' ? 'selected' : ''); ?>>Yes</option>
-                              </select>
+                      <hr>
+                      </hr>
+                      <h4 class="card-title">Unit Chair Information</h4>
+                      <div class="form-row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input id="uc_name" name="uc_name" type="text" class="form-control" placeholder="Name" value="<?php echo $getUnitElections['uc_name']; ?>">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input id="uc_address_line1" name="uc_address_line1" type="text" class="form-control" placeholder="Address" value="<?php echo $getUnitElections['uc_address_line1']; ?>">
+                          </div>
+                          <div class="form-group">
+                            <input id="uc_address_line2" name="uc_address_line2" type="text" class="form-control" placeholder="Address Line 2 (optional)" value="<?php echo $getUnitElections['uc_address_line2']; ?>">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input id="uc_city" name="uc_city" type="text" class="form-control" placeholder="City" value="<?php echo $getUnitElections['uc_city']; ?>">
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <input id="uc_state" name="uc_state" type="text" class="form-control" placeholder="State" value="<?php echo $getUnitElections['uc_state']; ?>">
+                              </div>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form-group">
+                                <input id="uc_zip" name="uc_zip" type="text" class="form-control" placeholder="Zip" value="<?php echo $getUnitElections['uc_zip']; ?>">
+                              </div>
                             </div>
                           </div>
                         </div>
-                      <?php } else { ?>
-                        <div></div>
-                      <?php } ?>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input id="uc_email" name="uc_email" type="email" class="form-control" placeholder="Email" value="<?php echo $getUnitElections['uc_email']; ?>">
+                          </div>
+                          <div class="form-group">
+                            <input id="uc_phone" name="uc_phone" type="text" class="form-control" placeholder="Phone (###-###-####)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<?php echo $getUnitElections['uc_phone']; ?>">
+                          </div>
+                        </div>
+                      </div>
                       <a href="index.php" class="btn btn-secondary">Cancel</a>
                       <input type="submit" class="btn btn-primary" value="Save">
                     </form>

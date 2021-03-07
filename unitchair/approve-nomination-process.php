@@ -163,6 +163,58 @@ $mail2 = new PHPMailer(true);
 </table>';   //An HTML or plain text message body
 $mail2->Send();        //Send an Email. Return true on success or false on error
 
+$mail3 = new PHPMailer(true);
+  $mail3->IsSMTP();        //Sets Mailer to send message using SMTP
+  $mail3->Host = $host;  //Sets the SMTP hosts
+  $mail3->Port = $port;        //Sets the default SMTP server port
+  $mail3->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
+  $mail3->Username = $musername;     //Sets SMTP username
+  $mail3->Password = $mpassword;     //Sets SMTP password
+  $mail3->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
+  $mail3->From = $mfrom;     //Sets the From email address for the message
+  $mail3->FromName = $mfromname;    //Sets the From name of the message
+  $mail3->AddAddress($comemail); //Adds a "To" address
+  $mail3->IsHTML(true);       //Sets message type to HTML    
+  $mail3->Subject = 'OA Adult Nomination Update for ' . $firstName . ' ' . $lastName;    //Sets the Subject of the message
+  $mail3->Body = '<table cellspacing="0" cellpadding="0" border="0" width="600px" style="margin:auto">
+  <tbody>
+    <tr>
+      <td style="text-align:center;padding:10px 0 20px 0"><a href="%%7Brecipient.ticket_link%7D" target="_blank"> <img src="https://lodge104.net/wp-content/uploads/2018/09/Horizontal-Brand-Color.png" alt="Occonechee Lodge Support" width="419" height="69" data-image="xoo68adcoon5"></a></td>
+    </tr>
+    <tr>
+      <td><table cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tbody>
+            <tr>
+              <td style="text-align:center;color:#ffffff;background-color:#2d3e4f;padding:8px 0;font-size:13px"> Occoneechee Lodge Unit Elections </td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border:1px solid #2d3e4f;padding:10px 30px;background-color:#fefefe;line-height:18px;color:#2d3e4f;font-size:13px"> 
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                    <tr>
+                      <td style="padding:15px 0; width:100%"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+                          <tbody>
+                            <tr>
+                              <td style="width:100%" valign="top">
+                                <br>
+                                Dear Selection Committee,<br>
+                                <br>
+                                The adult nomination for '.$firstName.' '.$lastName.' is now ready for review. Please head to <a href="https://nominate.lodge104.net">nominate.lodge104.net</a> to review the nomination.
+								</td>
+                            </tr>
+                          </tbody>
+
+                        </table></td>
+                    </tr>
+                  </tbody>
+                </table></td>
+            </tr>
+          </tbody>
+        </table></td>
+    </tr>
+  </tbody>
+</table>';   //An HTML or plain text message body
+$mail3->Send();        //Send an Email. Return true on success or false on error
 
 header("Location: close.php?status=1");
 

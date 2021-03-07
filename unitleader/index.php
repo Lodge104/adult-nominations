@@ -20,23 +20,9 @@ include '../unitelections-info.php';
   <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
   <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
   <link rel="stylesheet" href="../style.css">
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-37461006-19');
-  </script>
-
-
-
 </head>
+
+<?php include "../header.php"; ?>
 
 <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
   <div class="wrapper">
@@ -101,7 +87,7 @@ include '../unitelections-info.php';
           <div class="card mb-3">
             <div class="card-body">
               <h3 class="card-title d-inline-flex">Instructions</h3>
-              <p>This is the unit leader's dashboard for adult nominations to the Order of the Arrow. <b>If you are not the unit leader, please forward the original email to the correct person. Please start by updating your information using the edit button.</b> When you submit a new adult nomination, your unit's chair will be notified. They will review the submission on their own dashboard and approve it. Once approved, the nomination will go to the selection committee of the lodge. The status will be updated on this dashboard; use the link from the email you received to check back routinely.</p>
+              <p>This is the unit leader's dashboard for adult nominations to the Order of the Arrow. <b>If you are not the unit leader, please forward the original email to the correct person.</b></p><p><span class="badge badge-danger">Important:</span> Please start by updating your information, as the unit leader, using the edit button.</p><p>When you submit a new adult nomination, your unit's chair will be notified. They will review the submission on their own dashboard and approve it. Once approved, the nomination will go to the selection committee of the lodge. The status will be updated on this dashboard; use the link from the email you received to check back routinely.</p>
             </div>
           </div>
           <?php

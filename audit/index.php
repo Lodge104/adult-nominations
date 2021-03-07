@@ -11,19 +11,6 @@ include '../unitelections-info.php';
 <!DOCTYPE html>
 <html>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'UA-37461006-19');
-</script>
-
 <head>
   <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1" />
   <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
@@ -34,9 +21,9 @@ include '../unitelections-info.php';
   <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
   <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
   <link rel="stylesheet" href="../style.css">
-
-
 </head>
+
+<?php include "../header.php"; ?>
 
 <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
   <div class="wrapper">
@@ -79,7 +66,7 @@ include '../unitelections-info.php';
           </section>
 
           <?php
-          $adultNominationQuery = $conn->prepare("SELECT * from adultNominations");
+          $adultNominationQuery = $conn->prepare("SELECT * from adultNominations INNER JOIN unitElections ON adultNominations.unitId=unitElections.id WHERE unitElections.unitCommunity != 'Test Unit'");
           $adultNominationQuery->execute();
           $adultNominationQ = $adultNominationQuery->get_result();
           if ($adultNominationQ->num_rows > 0) {
@@ -151,7 +138,7 @@ include '../unitelections-info.php';
   </div>
   </main>
 
-  <?php include "footer.php"; ?>
+  <?php include "../footer.php"; ?>
 
   <script src="../libraries/jquery-3.4.1.min.js"></script>
   <script src="../libraries/popper-1.16.0.min.js"></script>

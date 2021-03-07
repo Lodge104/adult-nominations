@@ -31,9 +31,18 @@ if (isset($_POST['sm_zip'])) {  $sm_zip = $_POST['sm_zip']; } else { $sm_zip = "
 if (isset($_POST['sm_email'])) {  $sm_email = $_POST['sm_email']; } else { $sm_email = ""; }
 if (isset($_POST['sm_phone'])) {  $sm_phone = $_POST['sm_phone']; } else { $sm_phone = ""; }
 
+if (isset($_POST['uc_name'])) {  $uc_name = $_POST['uc_name']; } else { $uc_name = ""; }
+if (isset($_POST['uc_address_line1'])) {  $uc_address_line1 = $_POST['uc_address_line1']; } else { $uc_address_line1 = ""; }
+if (isset($_POST['uc_address_line2'])) {  $uc_address_line2 = $_POST['uc_address_line2']; } else { $uc_address_line2 = ""; }
+if (isset($_POST['uc_city'])) {  $uc_city = $_POST['uc_city']; } else { $uc_city = ""; }
+if (isset($_POST['uc_state'])) {  $uc_state = $_POST['uc_state']; } else { $uc_state = ""; }
+if (isset($_POST['uc_zip'])) {  $uc_zip = $_POST['uc_zip']; } else { $uc_zip = ""; }
+if (isset($_POST['uc_email'])) {  $uc_email = $_POST['uc_email']; } else { $uc_email = ""; }
+if (isset($_POST['uc_phone'])) {  $uc_phone = $_POST['uc_phone']; } else { $uc_phone = ""; }
 
-$updateElection = $conn->prepare("UPDATE unitElections SET open=?,sm_name=?,sm_address_line1=?,sm_address_line2=?,sm_city=?,sm_state=?,sm_zip=?,sm_email=?,sm_phone=?,numRegisteredYouth=? WHERE id = ?");
-$updateElection->bind_param("sssssssssss", $open, $sm_name, $sm_address_line1, $sm_address_line2, $sm_city, $sm_state, $sm_zip, $sm_email, $sm_phone, $numRegisteredYouth, $unitId);
+
+$updateElection = $conn->prepare("UPDATE unitElections SET sm_name=?,sm_address_line1=?,sm_address_line2=?,sm_city=?,sm_state=?,sm_zip=?,sm_email=?,sm_phone=?,numRegisteredYouth=? WHERE id = ?");
+$updateElection->bind_param("ssssssssss", $sm_name, $sm_address_line1, $sm_address_line2, $sm_city, $sm_state, $sm_zip, $sm_email, $sm_phone, $numRegisteredYouth, $unitId);
 $updateElection->execute();
 $updateElection->close();
 
@@ -41,6 +50,11 @@ $updateElection1 = $conn->prepare("UPDATE unitElections SET unitNumber=?, unitCo
 $updateElection1->bind_param("ssssss", $unitNumber, $unitCommunity, $onlinevote, $dateOfElection, ucfirst($chapter), $unitId);
 $updateElection1->execute();
 $updateElection1->close();
+
+$updateElection2 = $conn->prepare("UPDATE unitElections SET uc_name=?,uc_address_line1=?,uc_address_line2=?,uc_city=?,uc_state=?,uc_zip=?,uc_email=?,uc_phone=?,numRegisteredYouth=? WHERE id = ?");
+$updateElection2->bind_param("ssssssssss", $uc_name, $uc_address_line1, $uc_address_line2, $uc_city, $uc_state, $uc_zip, $uc_email, $uc_phone, $numRegisteredYouth, $unitId);
+$updateElection2->execute();
+$updateElection2->close();
 
 
 header("Location: /admin/?status=1");

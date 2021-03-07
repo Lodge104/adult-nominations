@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ff1a03389867eb06febde9bad9f4709771a8e376',
+    'reference' => 'f3d126a6870247f7bd351a78088d3931a0550e71',
     'name' => 'therecluse26/php-login',
   ),
   'versions' => 
@@ -548,7 +548,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ff1a03389867eb06febde9bad9f4709771a8e376',
+      'reference' => 'f3d126a6870247f7bd351a78088d3931a0550e71',
     ),
     'theseer/tokenizer' => 
     array (
@@ -558,6 +558,15 @@
       array (
       ),
       'reference' => '75a63c33a8577608444246075ea0af0d052e452a',
+    ),
+    'twilio/sdk' => 
+    array (
+      'pretty_version' => '6.18.0',
+      'version' => '6.18.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '158c2af294f4e35a5583303da81cf66c7751f720',
     ),
     'webmozart/assert' => 
     array (
