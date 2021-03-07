@@ -28,23 +28,9 @@ if ($conn->connect_error) {
   <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
   <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
   <link rel="stylesheet" href="../style.css">
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-37461006-19');
-  </script>
-
-
-
 </head>
+
+<?php include "../header.php"; ?>
 
 <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
   <div class="wrapper">
@@ -164,7 +150,7 @@ if ($conn->connect_error) {
                       <div class="col-md-2">
                         <div class="form-group">
                           <label for="dob" class="required">Birthdate</label>
-                          <input id="dob" name="dob" type="date" class="form-control" required>
+                          <input id="dob" name="dob" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" type="text" class="form-control" placeholder="MM-DD-YYYY" required>
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -352,14 +338,14 @@ if ($conn->connect_error) {
                         <div class="form-group">
                           <input class="form-check-input" type="checkbox" value="1" id="leader_signature" required>
                           <label class="required" for="leader_signature">
-                            By checking here, you, as the unit chair, testify the adult leader, who fulfills the above requirements, is recommended for membership consideration in the Order of the Arrow.
+                            By checking here, you, as the unit leader, testify the adult leader, who fulfills the above requirements, is recommended for membership consideration in the Order of the Arrow.
                           </label>
                         </div>
                       </div>
                     </div>
                     <a href="index.php?accessKey=<?php echo $accessKey; ?>&status=3" class="btn btn-secondary">Cancel</a>
                     <input type="submit" class="btn btn-primary" value="Submit">
-                    <div class="my-2"><small class="text-muted">Note: You will not be allowed to edit after this has submitted! Your Unit Chair will be invited via email to review this submission. Make sure their email is correct!</small></div>
+                    <div class="my-2"><small class="text-muted">Note: You will not be allowed to edit after this has submitted! Your Unit Chair will be invited via email to review this submission. Make sure their email and phone number are correct!</small></div>
                   </form>
               </div>
             </div>

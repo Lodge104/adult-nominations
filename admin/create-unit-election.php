@@ -15,19 +15,6 @@ if ($conn->connect_error) {
 
 <!DOCTYPE html>
 <html>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'UA-37461006-19');
-</script>
 <?php
 
 $userInfo = $auth0->getUser();
@@ -44,9 +31,9 @@ if (!$userInfo) : ?>
     <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
     <link rel="stylesheet" href="../style.css">
-
-
   </head>
+
+  <?php include "../header.php"; ?>
 
   <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
     <div class="wrapper">
@@ -105,9 +92,9 @@ if (!$userInfo) : ?>
       <link rel="stylesheet" href="../libraries/fontawesome-free-5.12.0/css/all.min.css">
       <link rel="stylesheet" href="https://use.typekit.net/awb5aoh.css" media="all">
       <link rel="stylesheet" href="../style.css">
-
-
     </head>
+
+    <?php include "../header.php"; ?>
 
     <body class="dashboard d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
       <div class="wrapper">
@@ -142,7 +129,11 @@ if (!$userInfo) : ?>
                       <label for="unitCommunity" class="required">Unit Type</label>
                       <select id="unitCommunity" name="unitCommunity" class="custom-select" required>
                         <option></option>
+                        <?php $host = $_SERVER['SERVER_NAME'];
+                        if($host == 'nominate-test.lodge104.net') : ?>
                         <option value="Test Unit">Test Unit</option>
+                        <?php else : ?>
+                        <?php endif ?>
                         <option value="Boy Troop">Boy Troop</option>
                         <option value="Girl Troop">Girl Troop</option>
                         <option value="Team">Team</option>
@@ -190,7 +181,7 @@ if (!$userInfo) : ?>
                 <div class="form-row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input id="sm_name" name="sm_name" type="text" class="form-control" placeholder="Name">
+                      <input id="sm_name" name="sm_name" type="text" class="form-control" placeholder="Name" required>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -220,15 +211,17 @@ if (!$userInfo) : ?>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input id="sm_email" name="sm_email" type="email" class="form-control" placeholder="Email">
+                      <input id="sm_email" name="sm_email" type="email" class="form-control" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                      <input id="sm_phone" name="sm_phone" type="text" class="form-control" placeholder="Phone">
+                      <input id="sm_phone" name="sm_phone" type="tel" class="form-control" placeholder="Phone (###-###-####)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
                     </div>
                   </div>
                 </div>
+                <a href="index.php" class="btn btn-secondary">Cancel</a>
                 <input type="submit" class="btn btn-primary" value="Submit">
               </form>
+              <div class="my-2"><small class="text-muted">Note: Hitting submit will instantly send the invitation email and text message. Double check that the email address and phone number are correct.</small></div>
             </div>
           </div>
       </div>

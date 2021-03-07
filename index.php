@@ -11,20 +11,6 @@ require 'vendor/autoload.php';
 
 <!DOCTYPE html>
 <html>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37461006-19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'UA-37461006-19');
-</script>
-
 <?php
 
 $userInfo = $auth0->getUser();
@@ -44,6 +30,8 @@ if (!$userInfo) : ?>
 
 
   </head>
+
+  <?php include "header.php"; ?>
 
   <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
     <div class="wrapper">
@@ -76,31 +64,10 @@ if (!$userInfo) : ?>
               </div>
             <?php } ?>
 
-            <div class="row justify-content-center pb-5">
-              <div class="card col-md-5">
-                <div class="card-body">
-                  <form action="/unitleader/" method="get">
-                    <h3 class="form-signin-heading text-center">Unit Leader Login</h3>
-                    <div class="form-group">
-                      <label for="accessKey" class="required">Access Key</label>
-                      <input type="text" id="accessKey" name="accessKey" class="form-control" autocomplete="off" required>
-                    </div>
-                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
-                  </form>
-                </div>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="card col-md-5">
-                <div class="card-body">
-                  <form action="/unitchair/" method="get">
-                    <h3 class="form-signin-heading text-center">Unit Chair Login</h3>
-                    <div class="form-group">
-                      <label for="accessKey" class="required">Access Key</label>
-                      <input type="text" id="accessKey" name="accessKey" class="form-control" autocomplete="off" required>
-                    </div>
-                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
-                  </form>
-                </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title d-inline-flex">Instructions</h3>
+                <p>Welcome to the Adult Nomination Portal for Occoneechee Lodge. Our lodge is moving away from paper forms and instead inviting unit leaders to use this online portal to submit adult nominations. Access to this portal is sent to unit leaders via email using a unique link <b>after</b> a unit election has been conducted and verified by Lodge Leadership. If you did not receive an invitation but should have, please use the live chat in the bottom right-hand corner to request one.</p>
               </div>
             </div>
             <div class="row justify-content-center">
@@ -134,7 +101,9 @@ if (!$userInfo) : ?>
 
     </head>
 
-    <body class="d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
+    <?php include "header.php"; ?>
+
+    <body class="dashboard d-flex flex-column h-100" id="section-conclave-report-form" data-spy="scroll" data-target="#scroll" data-offset="0">
       <div class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="https://lodge104.net">
@@ -146,12 +115,13 @@ if (!$userInfo) : ?>
 
           <div class="collapse navbar-collapse c-navbar-content" id="navbar-main">
             <div class="navbar-nav ml-auto">
+              <a class="nav-item nav-link" href="/admin">Unit List</a>
               <a class="nav-item nav-link" href="https://lodge104.net" target="_blank">Occoneechee Lodge Home</a>
             </div>
           </div>
         </nav>
 
-        <main class="container-fluid flex-shrink-0">
+        <main class="container-fluid col-xl-11">
 
           <div class="wrapper">
 
@@ -167,7 +137,6 @@ if (!$userInfo) : ?>
             }
 
             ?>
-            <main class="container-fluid col-xl-11">
               <?php
               if ($_GET['status'] == 1) { ?>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -183,13 +152,17 @@ if (!$userInfo) : ?>
               </section>
 
               <?php
+              $host = $_SERVER['SERVER_NAME'];
+              if($host == 'nominate-test.lodge104.net') {
               $adultNominationQuery = $conn->prepare("SELECT * from adultNominations");
+              } else {
+              $adultNominationQuery = $conn->prepare("SELECT unitElections.unitCommunity, adultNominations.* from adultNominations INNER JOIN unitElections ON adultNominations.unitId=unitElections.id WHERE unitElections.unitCommunity != 'Test Unit'");
+              }
               $adultNominationQuery->execute();
               $adultNominationQ = $adultNominationQuery->get_result();
               if ($adultNominationQ->num_rows > 0) {
                 //print election info
               ?>
-                <!--<div class="collapse" id="online">-->
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Adult Nominations</h3>
